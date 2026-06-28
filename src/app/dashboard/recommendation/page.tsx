@@ -35,14 +35,16 @@ export default function RecommendationPage() {
             const value = current[config.key];
             const status = getParameterStatus(config.key, value);
             return (
-              <div key={config.key} className="flex items-center gap-3 p-3 rounded-2xl bg-pure-sky/30 border border-blue-50">
-                <SensorIcon icon={config.icon} className="w-10 h-10" />
-                <div>
-                  <p className="text-[10px] text-pure-muted">{config.name}</p>
-                  <p className="text-sm font-bold text-pure-dark">
-                    {value.toFixed(config.decimals)} {config.unit}
+              <div key={config.key} className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-2xl bg-pure-sky/30 border border-blue-50">
+                <SensorIcon icon={config.icon} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] sm:text-xs text-pure-muted leading-tight mb-0.5">{config.name}</p>
+                  <p className="text-xs sm:text-sm font-bold text-pure-dark leading-tight">
+                    {value.toFixed(config.decimals)} <span className="font-normal">{config.unit}</span>
                   </p>
-                  <StatusBadge status={status} className="mt-1 !text-[9px] !px-2 !py-0.5" />
+                  <div className="mt-1.5">
+                    <StatusBadge status={status} className="!text-[9px] !px-2 !py-0.5 inline-flex" />
+                  </div>
                 </div>
               </div>
             );
@@ -68,7 +70,11 @@ export default function RecommendationPage() {
                 key={rec.fish.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: i * 0.08, 
+                  ease: [0.25, 0.1, 0.25, 1] 
+                }}
               >
                 <ClayCard className="h-full">
                   <div className="flex items-start justify-between mb-3">
@@ -95,7 +101,11 @@ export default function RecommendationPage() {
                       )}
                       initial={{ width: 0 }}
                       animate={{ width: `${rec.score}%` }}
-                      transition={{ duration: 0.8, delay: i * 0.1 }}
+                      transition={{ 
+                        duration: 0.8, 
+                        delay: i * 0.1, 
+                        ease: [0.25, 0.1, 0.25, 1] 
+                      }}
                     />
                   </div>
 
@@ -210,8 +220,9 @@ export default function RecommendationPage() {
         {/* Gap Analysis */}
         {targetFish && gapAnalysis && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             className="space-y-4"
           >
             <h4 className="font-semibold text-pure-dark">
