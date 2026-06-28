@@ -288,3 +288,115 @@
     background: #0E8FEA;
   }
 }
+
+/* ============================================
+   HERO SECTION — AQUATIC EFFECTS
+   ============================================ */
+
+/* ── Bubble rise animation ── */
+@keyframes hero-bubble-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.5);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.85;
+  }
+  35% {
+    opacity: 0.75;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(var(--bubble-drift, 0px), -115vh, 0) scale(1.15);
+    opacity: 0;
+  }
+}
+
+.hero-bubble {
+  border: 2px solid rgba(14, 143, 234, 0.35);
+  background: radial-gradient(
+    circle at 30% 25%,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(190, 239, 255, 0.5) 30%,
+    rgba(34, 199, 242, 0.3) 60%,
+    rgba(14, 143, 234, 0.15) 100%
+  );
+  box-shadow:
+    inset 0 -6px 12px rgba(14, 143, 234, 0.12),
+    inset 0 3px 8px rgba(255, 255, 255, 0.7),
+    0 0 16px rgba(14, 143, 234, 0.2),
+    0 0 32px rgba(34, 199, 242, 0.12);
+  animation: hero-bubble-rise var(--bubble-duration, 16s) linear infinite;
+  animation-delay: var(--bubble-delay, 0s);
+  will-change: transform, opacity;
+}
+
+/* ── Water caustics layer ── */
+.hero-caustics-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 40% 35% at 18% 25%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(ellipse 35% 30% at 72% 18%, rgba(99, 221, 247, 0.18), transparent),
+    radial-gradient(ellipse 45% 40% at 42% 72%, rgba(255, 255, 255, 0.18), transparent),
+    radial-gradient(ellipse 30% 25% at 85% 65%, rgba(34, 199, 242, 0.12), transparent),
+    radial-gradient(ellipse 25% 20% at 55% 40%, rgba(255, 255, 255, 0.14), transparent);
+  mix-blend-mode: soft-light;
+  opacity: 0.45;
+  animation: hero-caustics-shift 14s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-caustics-shift {
+  0% {
+    transform: translate3d(-1.5%, 0.5%, 0) scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(0.5%, -0.5%, 0) scale(1.02);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(1.5%, -1%, 0) scale(1.04);
+    opacity: 0.4;
+  }
+}
+
+/* ── Wave bottom animations ── */
+.hero-wave-back {
+  animation: hero-wave-drift-back 8s ease-in-out infinite alternate;
+}
+.hero-wave-mid {
+  animation: hero-wave-drift-mid 6s ease-in-out infinite alternate;
+}
+.hero-wave-front {
+  animation: hero-wave-drift-front 7s ease-in-out infinite alternate;
+}
+
+@keyframes hero-wave-drift-back {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-12px); }
+}
+@keyframes hero-wave-drift-mid {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(8px); }
+}
+@keyframes hero-wave-drift-front {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-6px); }
+}
+
+/* ── Accessibility: respect reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bubble,
+  .hero-caustics-layer,
+  .hero-wave-back,
+  .hero-wave-mid,
+  .hero-wave-front {
+    animation: none !important;
+  }
+}

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useSensorData } from '@/context/sensor-context';
 import { ConnectionStatus } from '@/components/ui/status-badge';
@@ -12,6 +13,11 @@ interface TopNavProps {
 
 export function TopNav({ onMenuClick }: TopNavProps) {
   const { current, connectionStatus, lastUpdate } = useSensorData();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header
@@ -51,11 +57,13 @@ export function TopNav({ onMenuClick }: TopNavProps) {
         <div className="hidden md:flex items-center gap-1.5 text-xs text-pure-muted">
           <span>Last update:</span>
           <span className="font-medium text-pure-dark">
-            {lastUpdate.toLocaleTimeString('id-ID', {
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-            })}
+            {mounted
+              ? lastUpdate.toLocaleTimeString('id-ID', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                })
+              : '--:--:--'}
           </span>
         </div>
 
