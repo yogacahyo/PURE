@@ -69,7 +69,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
 
         <div className="h-6 w-px bg-blue-100 hidden md:block" />
 
-        <Avatar className="w-8 h-8 clay-badge cursor-pointer">
+        <Avatar className="w-8 h-8 aspect-square clay-badge p-0 cursor-pointer">
           <AvatarFallback className="bg-gradient-to-br from-pure-primary to-pure-cyan text-white text-xs font-bold">
             <User className="w-4 h-4" />
           </AvatarFallback>
